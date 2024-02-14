@@ -19,7 +19,7 @@ if(MSVC)
 endif()
 
 ## Find packages
-
+set(CMAKE_MODULE_PATH "~/ws_yolov8/src/*;${CMAKE_MODULE_PATH}")
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(std_msgs REQUIRED)
@@ -32,6 +32,7 @@ find_package(tf2_geometry_msgs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(cv_bridge REQUIRED)
 find_package(angles REQUIRED)
+find_package(yolov8_msgs REQUIRED)
 
 ###########
 ## Build ##
@@ -44,6 +45,7 @@ add_executable(${PROJECT_NAME}_node
   src/k4a_ros_device.cpp
   src/k4a_ros_device_params.cpp
   src/k4a_calibration_transform_data.cpp
+  src/k4a_2d_transform.cpp
   )
 
 ament_target_dependencies(${PROJECT_NAME}_node rclcpp 
@@ -55,7 +57,9 @@ ament_target_dependencies(${PROJECT_NAME}_node rclcpp
   tf2_ros
   tf2_geometry_msgs
   cv_bridge
+  yolov8_msgs
   angles)
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

@@ -13,6 +13,7 @@
 // Project headers
 //
 #include "azure_kinect_ros_driver/k4a_ros_device.h"
+#include "azure_kinect_ros_driver/k4a_2d_transform.hpp"
 
 int main(int argc, char** argv)
 {
@@ -20,7 +21,6 @@ int main(int argc, char** argv)
 
   // Create Node for handling info and error messages
   rclcpp::Node::SharedPtr node = rclcpp::Node::make_shared("k4a_bridge");
-
 
   // Setup the K4A device
   std::shared_ptr<K4AROSDevice> device(new K4AROSDevice);
@@ -41,12 +41,15 @@ int main(int argc, char** argv)
   }
 
   RCLCPP_INFO(node->get_logger(),"K4A Started");
-
+  RCLCPP_INFO(node->get_logger(),"Transformer Node Started");
+  auto transformer_node = std::make_shared<K4A2dTransformNode>(device);
+  rclcpp::spin(transformer_node);
   if (result == K4A_RESULT_SUCCEEDED)
   {
     rclcpp::spin(node);
 
     RCLCPP_INFO(node->get_logger(),"ROS Exit Started");
+
   }
 
   device.reset();

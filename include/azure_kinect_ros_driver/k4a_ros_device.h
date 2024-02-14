@@ -37,13 +37,14 @@
 class K4AROSDevice : public rclcpp::Node
 {
  public:
+  k4a::device k4a_device_;
   K4AROSDevice();
 
   ~K4AROSDevice();
 
   k4a_result_t startCameras();
   k4a_result_t startImu();
-
+  // K4A device
   void stopCameras();
   void stopImu();
 
@@ -144,8 +145,6 @@ class K4AROSDevice : public rclcpp::Node
   // Parameters
   K4AROSDeviceParams params_;
 
-  // K4A device
-  k4a::device k4a_device_;
   K4ACalibrationTransformData calibration_data_;
 
   // K4A Recording

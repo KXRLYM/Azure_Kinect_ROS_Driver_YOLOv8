@@ -8,7 +8,6 @@
 // System headers
 //
 #include <stdexcept>
-
 // Library headers
 //
 #include <angles/angles.h>
@@ -23,6 +22,7 @@
 K4ACalibrationTransformData::K4ACalibrationTransformData() : Node("k4a_calibration_transform_data")
 {
   static_broadcaster_ = std::make_shared<tf2_ros::StaticTransformBroadcaster>(this);
+  
 }
 void K4ACalibrationTransformData::initialize(const k4a::device& device, const k4a_depth_mode_t depth_mode,
                                              const k4a_color_resolution_t resolution, const K4AROSDeviceParams& params)
